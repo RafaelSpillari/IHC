@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Missão Artemis 5 – Retorno à Lua</title>
+  <meta name="description" content="Conheça a Missão Artemis 5 da NASA: objetivos, astronautas, missões anteriores e rota de voo." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── CSS Variables ── */
+    :root {
+      --charcoal:   #353535;
+      --teal:       #3C6E71;
+      --white:      #FFFFFF;
+      --navy:       #284B63;
+      --gold:       #FFDD00;
+      --bg:         #0a0c14;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--white);
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Skip to content (acessibilidade) ── */
+    .skip-link {
+      position: absolute;
+      top: -9999px; left: 0;
+      background: var(--gold); color: var(--charcoal);
+      padding: .5rem 1rem;
+      font-weight: 600;
+      z-index: 9999;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── Stars background ── */
+    .stars-bg {
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 30%, rgba(40,75,99,.35) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 70%, rgba(60,110,113,.2) 0%, transparent 55%),
+        var(--bg);
+      z-index: -2;
+    }
+    .stars-bg::before,
+    .stars-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,.9) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 60%, rgba(255,255,255,.7) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 40% 35%, rgba(255,221,0,.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 80%, rgba(255,255,255,.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,.6) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 85% 50%, rgba(255,255,255,.9) 0%, transparent 100%),
+        radial-gradient(1px 1px at 92% 75%, rgba(255,221,0,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 5% 90%,  rgba(255,255,255,.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 63% 55%, rgba(255,255,255,.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 77% 88%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 33% 72%, rgba(60,110,113,.9) 0%, transparent 100%),
+        radial-gradient(1px 1px at 88% 10%, rgba(255,255,255,.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 45% 95%, rgba(255,255,255,.6) 0%, transparent 100%);
+      background-size: 400px 400px, 600px 600px, 350px 350px, 500px 500px, 450px 450px,
+                       300px 300px, 700px 700px, 250px 250px, 550px 550px, 480px 480px,
+                       320px 320px, 620px 620px, 410px 410px, 380px 380px, 530px 530px;
+    }
+    .stars-bg::after {
+      animation: twinkle 8s infinite alternate;
+      opacity: .6;
+    }
+    @keyframes twinkle {
+      0%   { opacity: .4; }
+      50%  { opacity: .9; }
+      100% { opacity: .5; }
+    }
+
+    /* ── Navigation ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10,12,20,.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(60,110,113,.4);
+    }
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: .7rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+    }
+    .nav-left, .nav-right {
+      display: flex;
+      gap: .25rem;
+      align-items: center;
+    }
+    .nav-right { justify-content: flex-end; }
+
+    .logo-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .15rem;
+    }
+    .logo-emblem {
+      width: 54px; height: 54px;
+      background: conic-gradient(from 0deg, var(--teal), var(--navy), var(--gold), var(--teal));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: .55rem;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: .05em;
+      box-shadow: 0 0 18px rgba(255,221,0,.4), 0 0 40px rgba(60,110,113,.3);
+      animation: rotateLogo 20s linear infinite;
+      text-align: center;
+      line-height: 1.2;
+    }
+    @keyframes rotateLogo {
+      from { box-shadow: 0 0 18px rgba(255,221,0,.4), 0 0 40px rgba(60,110,113,.3); }
+      50%  { box-shadow: 0 0 30px rgba(255,221,0,.7), 0 0 60px rgba(60,110,113,.5); }
+      to   { box-shadow: 0 0 18px rgba(255,221,0,.4), 0 0 40px rgba(60,110,113,.3); }
+    }
+    .logo-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    nav a {
+      color: rgba(255,255,255,.75);
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .45rem .7rem;
+      border-radius: 3px;
+      border: 1px solid transparent;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+    nav a:hover, nav a:focus {
+      color: var(--gold);
+      border-color: rgba(255,221,0,.3);
+      background: rgba(255,221,0,.06);
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    /* ── Main layout ── */
+    main { padding-top: 90px; }
+
+    /* ── Section: Hero ── */
+    #inicio {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem 6rem;
+      position: relative;
+    }
+    .moon-container {
+      position: relative;
+      width: min(520px, 90vw);
+      aspect-ratio: 1;
+      margin: 0 auto 3rem;
+      animation: moonFloat 6s ease-in-out infinite;
+    }
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-18px); }
+    }
+    .moon-img {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow:
+        0 0 60px rgba(255,221,0,.25),
+        0 0 120px rgba(255,221,0,.1),
+        inset 0 0 40px rgba(0,0,0,.6);
+      filter: contrast(1.05) brightness(.95);
+    }
+    .moon-glow {
+      position: absolute; inset: -30px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,221,0,.08) 0%, transparent 70%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: .6; transform: scale(1); }
+      50%       { opacity: 1; transform: scale(1.05); }
+    }
+
+    .hero-eyebrow {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .7rem;
+      letter-spacing: .3em;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: .5rem;
+    }
+    .hero-title span { color: var(--gold); }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-weight: 300;
+      color: rgba(255,255,255,.6);
+      margin-bottom: 2.5rem;
+      letter-spacing: .05em;
+    }
+
+    .hero-summary {
+      max-width: 780px;
+      margin: 0 auto;
+      background: rgba(40,75,99,.2);
+      border: 1px solid rgba(60,110,113,.35);
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      backdrop-filter: blur(8px);
+    }
+    .hero-summary p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.82);
+      line-height: 1.85;
+    }
+
+    /* ── Sections shared ── */
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .section-eyebrow {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .65rem;
+      letter-spacing: .3em;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: .6rem;
+    }
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+    h2 span { color: var(--gold); }
+    .section-divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--teal));
+      border-radius: 2px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── Objetivo ── */
+    #objetivo {
+      background: rgba(53,53,53,.15);
+      border-top: 1px solid rgba(60,110,113,.2);
+      border-bottom: 1px solid rgba(60,110,113,.2);
+      max-width: 100%;
+      padding: 5rem 2rem;
+    }
+    #objetivo > .inner { max-width: 1100px; margin: 0 auto; }
+
+    .objectives-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .obj-card {
+      background: rgba(40,75,99,.18);
+      border: 1px solid rgba(60,110,113,.3);
+      border-radius: 10px;
+      padding: 1.8rem;
+      transition: transform .3s, border-color .3s;
+    }
+    .obj-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+    .obj-icon {
+      font-size: 2rem;
+      margin-bottom: .8rem;
+      display: block;
+      filter: drop-shadow(0 0 6px rgba(255,221,0,.4));
+    }
+    h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: .5rem;
+      letter-spacing: .05em;
+    }
+    .obj-card p { font-size: .95rem; color: rgba(255,255,255,.75); }
+
+    /* ── Astronautas ── */
+    .astronaut-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+    .astro-card {
+      background: rgba(53,53,53,.25);
+      border: 1px solid rgba(60,110,113,.3);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .astro-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(255,221,0,.15);
+    }
+    .astro-img-wrap {
+      height: 200px;
+      background: linear-gradient(135deg, rgba(40,75,99,.6), rgba(60,110,113,.4));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4.5rem;
+    }
+    .astro-info { padding: 1.2rem; }
+    .astro-info h3 { font-size: .8rem; color: var(--gold); margin-bottom: .25rem; }
+    .astro-info .role {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .6rem;
+      color: var(--teal);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: .5rem;
+    }
+    .astro-info p { font-size: .875rem; color: rgba(255,255,255,.7); }
+
+    /* ── Missões Passadas ── */
+    #missoes {
+      background: rgba(40,75,99,.08);
+      max-width: 100%;
+      padding: 5rem 2rem;
+      border-top: 1px solid rgba(60,110,113,.2);
+      border-bottom: 1px solid rgba(60,110,113,.2);
+    }
+    #missoes > .inner { max-width: 1100px; margin: 0 auto; }
+
+    .missions-timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin-top: 2rem;
+    }
+    .missions-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--gold), var(--teal), transparent);
+    }
+    .mission-item {
+      position: relative;
+      padding: 1.5rem 1.5rem 1.5rem 2rem;
+      margin-bottom: 1.5rem;
+      background: rgba(53,53,53,.2);
+      border: 1px solid rgba(60,110,113,.25);
+      border-radius: 8px;
+      transition: border-color .3s;
+    }
+    .mission-item:hover { border-color: rgba(255,221,0,.4); }
+    .mission-item::before {
+      content: '';
+      position: absolute;
+      left: -2.6rem;
+      top: 1.8rem;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 10px var(--gold);
+    }
+    .mission-badge {
+      display: inline-block;
+      background: rgba(255,221,0,.12);
+      color: var(--gold);
+      font-family: 'Orbitron', sans-serif;
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      padding: .2rem .6rem;
+      border-radius: 3px;
+      border: 1px solid rgba(255,221,0,.3);
+      margin-bottom: .6rem;
+    }
+    h4 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: .5rem;
+    }
+    .mission-item p { font-size: .9rem; color: rgba(255,255,255,.7); }
+    .mission-status {
+      display: inline-block;
+      margin-top: .6rem;
+      font-size: .75rem;
+      color: var(--teal);
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: .05em;
+    }
+
+    /* ── Rota ── */
+    .route-diagram {
+      margin: 2rem auto;
+      max-width: 860px;
+    }
+    .route-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      align-items: stretch;
+      justify-content: center;
+    }
+    .route-step {
+      flex: 1;
+      min-width: 130px;
+      max-width: 170px;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: rgba(40,75,99,.2);
+      border: 1px solid rgba(60,110,113,.3);
+      border-radius: 10px;
+      position: relative;
+      transition: background .3s;
+    }
+    .route-step:hover { background: rgba(40,75,99,.4); }
+    .route-arrow {
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+      font-size: 1.2rem;
+      padding: 0 .5rem;
+      min-width: 30px;
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--charcoal);
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: .7rem;
+      margin: 0 auto .7rem;
+    }
+    .step-icon { font-size: 1.6rem; display: block; margin-bottom: .5rem; }
+    h5 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .65rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: .4rem;
+      letter-spacing: .05em;
+    }
+    .route-step p { font-size: .78rem; color: rgba(255,255,255,.65); }
+
+    /* ── Contato / Formulário ── */
+    #contato {
+      background: rgba(53,53,53,.1);
+      max-width: 100%;
+      padding: 5rem 2rem;
+      border-top: 1px solid rgba(60,110,113,.2);
+    }
+    #contato > .inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: .5rem;
+    }
+    label .required {
+      color: var(--gold);
+      margin-left: .2rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+      width: 100%;
+      background: rgba(40,75,99,.2);
+      border: 1px solid rgba(60,110,113,.4);
+      border-radius: 6px;
+      color: var(--white);
+      font-family: 'Exo 2', sans-serif;
+      font-size: .95rem;
+      padding: .75rem 1rem;
+      transition: border-color .2s, background .2s;
+      appearance: none;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+      border-color: var(--gold);
+      background: rgba(40,75,99,.35);
+    }
+    textarea { resize: vertical; min-height: 120px; }
+    select option { background: var(--charcoal); }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: var(--gold);
+      color: var(--charcoal);
+      font-family: 'Orbitron', sans-serif;
+      font-size: .7rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .85rem 2.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-submit:hover, .btn-submit:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255,221,0,.35);
+      outline: 2px solid var(--white);
+      outline-offset: 2px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border-top: 1px solid rgba(60,110,113,.2);
+      color: rgba(255,255,255,.35);
+      font-size: .8rem;
+    }
+    footer strong { color: var(--teal); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav {
+        grid-template-columns: 1fr;
+        gap: .5rem;
+      }
+      .nav-left, .nav-right { justify-content: center; }
+      .logo-center { order: -1; }
+      .route-steps { flex-direction: column; align-items: center; }
+      .route-arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo-principal">Ir para o conteúdo principal</a>
+  <div class="stars-bg" role="presentation" aria-hidden="true"></div>
+
+  <!-- ════ CABEÇALHO / NAVEGAÇÃO ════ -->
+  <header role="banner">
+    <nav role="navigation" aria-label="Menu principal">
+      <div class="nav-left">
+        <a href="#objetivo">Objetivo</a>
+        <a href="#astronautas">Astronautas</a>
+      </div>
+
+      <div class="logo-center">
+        <div class="logo-emblem" role="img" aria-label="Emblema circular da missão Artemis 5 com gradiente dourado e azul">
+          ARTEMIS<br>V
+        </div>
+        <span class="logo-title">Missão Artemis 5</span>
+      </div>
+
+      <div class="nav-right">
+        <a href="#missoes">Missões Passadas</a>
+        <a href="#rota">Rota</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ════ CONTEÚDO PRINCIPAL ════ -->
+  <main id="conteudo-principal">
+
+    <!-- ── HERO ── -->
+    <section id="inicio" aria-labelledby="hero-heading">
+      <div class="moon-container">
+        <div class="moon-glow" aria-hidden="true"></div>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/1280px-FullMoon2010.jpg"
+          alt="Fotografia da Lua cheia em alta resolução com crateras e mares lunares visíveis, iluminada de forma uniforme contra o fundo negro do espaço"
+          class="moon-img"
+          width="520"
+          height="520"
+          loading="eager"
+        />
+      </div>
+
+      <p class="hero-eyebrow" aria-hidden="true">NASA · 2030</p>
+      <h1 class="hero-title" id="hero-heading">
+        Artemis <span>V</span>
+      </h1>
+      <p class="hero-subtitle">A missão que levará a humanidade de volta à Lua</p>
+
+      <div class="hero-summary" role="region" aria-label="Resumo da missão Artemis 5">
+        <p>
+          A <strong>Missão Artemis 5</strong> representa o passo mais ambicioso do programa lunar da NASA desde a era Apollo.
+          Prevista para 2030, ela levará quatro astronautas ao polo sul da Lua a bordo do foguete <strong>Space Launch System (SLS)</strong>
+          e da cápsula <strong>Orion</strong>, com pouso garantido pelo módulo lunar HLS da SpaceX.
+          Pela primeira vez na história, uma mulher e um astronauta não-americano pisarão na superfície lunar,
+          estabelecendo as bases para uma presença humana permanente no satélite natural da Terra
+          e abrindo caminho para futuras missões a <strong>Marte</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── OBJETIVO ── -->
+    <div id="objetivo">
+      <section class="inner" aria-labelledby="objetivo-heading">
+        <p class="section-eyebrow">Por que voltamos?</p>
+        <h2 id="objetivo-heading">Objetivo da <span>Missão</span></h2>
+        <div class="section-divider" aria-hidden="true"></div>
+
+        <div class="objectives-grid">
+          <article class="obj-card">
+            <span class="obj-icon" aria-hidden="true">🔬</span>
+            <h3>Pesquisa Científica</h3>
+            <p>Coletar amostras inéditas do polo sul lunar, onde há evidências de gelo de água em crateras permanentemente sombreadas, com potencial para sustentar vida e missões futuras.</p>
+          </article>
+          <article class="obj-card">
+            <span class="obj-icon" aria-hidden="true">🏗️</span>
+            <h3>Base Lunar Permanente</h3>
+            <p>Estabelecer os fundamentos do Gateway, a estação espacial lunar que servirá como ponto de apoio para viagens à Lua e plataforma para missões além do sistema Terra-Lua.</p>
+          </article>
+          <article class="obj-card">
+            <span class="obj-icon" aria-hidden="true">🌍</span>
+            <h3>Cooperação Internacional</h3>
+            <p>Integrar agências parceiras como ESA, JAXA e CSA no programa Artemis, consolidando a Lua como território de exploração pacífica compartilhada entre nações.</p>
+          </article>
+          <article class="obj-card">
+            <span class="obj-icon" aria-hidden="true">🚀</span>
+            <h3>Trampolim para Marte</h3>
+            <p>Testar tecnologias de vida e propulsão em ambiente lunar — um análogo ao planeta vermelho — para preparar missões humanas a Marte ainda na década de 2040.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── ASTRONAUTAS ── -->
+    <section id="astronautas" aria-labelledby="astronautas-heading">
+      <p class="section-eyebrow">Tripulação</p>
+      <h2 id="astronautas-heading">Os <span>Astronautas</span></h2>
+      <div class="section-divider" aria-hidden="true"></div>
+
+      <div class="astronaut-grid">
+        <article class="astro-card">
+          <div class="astro-img-wrap" role="img" aria-label="Ícone representativo de astronauta com traje espacial">
+            <span aria-hidden="true">👩‍🚀</span>
+          </div>
+          <div class="astro-info">
+            <h3>Comandante – Reid Wiseman</h3>
+            <p class="role">Commander / NASA</p>
+            <p>Veterano da ISS, Wiseman liderará a equipe durante os 30 dias da missão, incluindo as duas caminhadas lunares previstas no polo sul.</p>
+          </div>
+        </article>
+        <article class="astro-card">
+          <div class="astro-img-wrap" role="img" aria-label="Ícone representativo de astronauta com traje espacial">
+            <span aria-hidden="true">👩‍🚀</span>
+          </div>
+          <div class="astro-info">
+            <h3>Piloto – Victor Glover</h3>
+            <p class="role">Pilot / NASA</p>
+            <p>Responsável pelos sistemas da Orion e das manobras de rendezvous com o Gateway. Glover foi o primeiro afro-americano a integrar uma missão de longa duração na ISS.</p>
+          </div>
+        </article>
+        <article class="astro-card">
+          <div class="astro-img-wrap" role="img" aria-label="Ícone representativo de astronauta com traje espacial">
+            <span aria-hidden="true">👩‍🚀</span>
+          </div>
+          <div class="astro-info">
+            <h3>Especialista – Christina Koch</h3>
+            <p class="role">Mission Specialist / NASA</p>
+            <p>Detentora do recorde feminino de permanência contínua no espaço. Koch será a primeira mulher a pisar na superfície lunar, um marco histórico da missão Artemis 5.</p>
+          </div>
+        </article>
+        <article class="astro-card">
+          <div class="astro-img-wrap" role="img" aria-label="Ícone representativo de astronauta com traje espacial">
+            <span aria-hidden="true">🧑‍🚀</span>
+          </div>
+          <div class="astro-info">
+            <h3>Especialista – Jeremy Hansen</h3>
+            <p class="role">Mission Specialist / CSA</p>
+            <p>Astronauta canadense da CSA, Hansen será o primeiro não-americano a pousar na Lua, simbolizando a natureza global e colaborativa do programa Artemis.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── MISSÕES PASSADAS ── -->
+    <div id="missoes">
+      <section class="inner" aria-labelledby="missoes-heading">
+        <p class="section-eyebrow">Histórico do programa</p>
+        <h2 id="missoes-heading">Missões <span>Anteriores</span></h2>
+        <div class="section-divider" aria-hidden="true"></div>
+
+        <div class="missions-timeline" role="list">
+          <article class="mission-item" role="listitem">
+            <span class="mission-badge">Artemis I</span>
+            <h4>Primeiro Voo Não Tripulado do SLS</h4>
+            <p>Lançado em novembro de 2022, o voo inaugural do SLS levou a cápsula Orion sem tripulação até a órbita retrógrada distante da Lua (DRO), a 64.000 km da superfície lunar, retornando com sucesso após 25 dias.</p>
+            <span class="mission-status">✓ Concluída — Nov. 2022</span>
+          </article>
+          <article class="mission-item" role="listitem">
+            <span class="mission-badge">Artemis II</span>
+            <h4>Primeira Tripulação Humana ao Redor da Lua</h4>
+            <p>Com quatro astronautas a bordo, Artemis II completou um sobrevoo próximo da Lua em trajetória livre retorno, sem pousar. Missão histórica: a mais distante da Terra com humanos desde Apollo 17, em 1972.</p>
+            <span class="mission-status">✓ Concluída — Set. 2025</span>
+          </article>
+          <article class="mission-item" role="listitem">
+            <span class="mission-badge">Artemis III</span>
+            <h4>Primeiro Pouso Lunar do Século XXI</h4>
+            <p>A primeira missão de pouso do programa Artemis levou dois astronautas ao polo sul da Lua usando o módulo HLS da SpaceX (Starship lunar). Dois EVAs na superfície e coleta de amostras marcaram o retorno humano à Lua após mais de 50 anos.</p>
+            <span class="mission-status">✓ Concluída — 2026</span>
+          </article>
+          <article class="mission-item" role="listitem">
+            <span class="mission-badge">Artemis IV</span>
+            <h4>Montagem do Lunar Gateway</h4>
+            <p>Missão focada na construção do Gateway lunar, com entrega e acoplagem dos primeiros módulos habitáveis da estação orbital. Expandiu a capacidade de exploração sustentada da superfície e testou operações em conjunto com a ISS lunar.</p>
+            <span class="mission-status">✓ Concluída — 2028</span>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── ROTA ── -->
+    <section id="rota" aria-labelledby="rota-heading">
+      <p class="section-eyebrow">Navegação Espacial</p>
+      <h2 id="rota-heading">Rota de <span>Voo</span></h2>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p style="color:rgba(255,255,255,.65); max-width:680px; margin-bottom:2.5rem;">
+        A trajetória da Artemis 5 combina o foguete SLS Block 2, a cápsula Orion e o módulo lunar HLS Starship em uma sequência de manobras orbitais cuidadosamente planejadas ao longo de 30 dias de missão.
+      </p>
+
+      <div class="route-diagram" role="region" aria-label="Diagrama da rota de voo da missão Artemis 5">
+        <div class="route-steps">
+          <div class="route-step">
+            <div class="step-num" aria-hidden="true">1</div>
+            <span class="step-icon" aria-hidden="true">🚀</span>
+            <h5>Lançamento</h5>
+            <p>SLS Block 2 decola do Kennedy Space Center, Cabo Canaveral — FL</p>
+          </div>
+          <div class="route-arrow" aria-hidden="true">›</div>
+          <div class="route-step">
+            <div class="step-num" aria-hidden="true">2</div>
+            <span class="step-icon" aria-hidden="true">🛸</span>
+            <h5>TLI</h5>
+            <p>Injeção Trans-Lunar: queima do estágio criogênico em direção à Lua (Dia 1)</p>
+          </div>
+          <div class="route-arrow" aria-hidden="true">›</div>
+          <div class="route-step">
+            <div class="step-num" aria-hidden="true">3</div>
+            <span class="step-icon" aria-hidden="true">🛰️</span>
+            <h5>Gateway</h5>
+            <p>Acoplagem na estação lunar Gateway em órbita NRHO (Dia 4–5)</p>
+          </div>
+          <div class="route-arrow" aria-hidden="true">›</div>
+          <div class="route-step">
+            <div class="step-num" aria-hidden="true">4</div>
+            <span class="step-icon" aria-hidden="true">🌕</span>
+            <h5>Pouso</h5>
+            <p>Dois astronautas descem ao polo sul via HLS Starship (Dia 6)</p>
+          </div>
+          <div class="route-arrow" aria-hidden="true">›</div>
+          <div class="route-step">
+            <div class="step-num" aria-hidden="true">5</div>
+            <span class="step-icon" aria-hidden="true">🥾</span>
+            <h5>EVA Lunar</h5>
+            <p>Duas caminhadas lunares, coleta de amostras e experimentos (Dia 7–13)</p>
+          </div>
+          <div class="route-arrow" aria-hidden="true">›</div>
+          <div class="route-step">
+            <div class="step-num" aria-hidden="true">6</div>
+            <span class="step-icon" aria-hidden="true">🌍</span>
+            <h5>Retorno</h5>
+            <p>Reentrada atmosférica e amerissagem no Oceano Pacífico (Dia 30)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FORMULÁRIO DE CONTATO ── -->
+    <div id="contato">
+      <section class="inner" aria-labelledby="contato-heading">
+        <p class="section-eyebrow">Fique por dentro</p>
+        <h2 id="contato-heading">Receba <span>Atualizações</span></h2>
+        <div class="section-divider" aria-hidden="true"></div>
+
+        <form action="#" method="post" novalidate aria-label="Formulário de cadastro para receber atualizações da missão Artemis 5">
+          <div class="form-group">
+            <label for="nome">
+              Nome completo <span class="required" aria-hidden="true">*</span>
+            </label>
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              required
+              aria-required="true"
+              autocomplete="name"
+              placeholder="Seu nome"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">
+              E-mail <span class="required" aria-hidden="true">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              aria-required="true"
+              autocomplete="email"
+              placeholder="seu@email.com"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="interesse">Área de interesse</label>
+            <select id="interesse" name="interesse">
+              <option value="">Selecione uma opção</option>
+              <option value="ciencia">Pesquisa Científica</option>
+              <option value="engenharia">Engenharia e Tecnologia</option>
+              <option value="astronautas">Astronautas e Tripulação</option>
+              <option value="rota">Trajetória e Navegação</option>
+              <option value="geral">Notícias Gerais</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="mensagem">Mensagem</label>
+            <textarea
+              id="mensagem"
+              name="mensagem"
+              rows="4"
+              placeholder="Dúvidas, comentários ou sugestões sobre a missão…"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span aria-hidden="true">🚀</span> Enviar Inscrição
+          </button>
+        </form>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- ════ RODAPÉ ════ -->
+  <footer role="contentinfo">
+    <p>
+      &copy; 2030 <strong>NASA Artemis Program</strong> · Desenvolvido com fins educativos ·
+      Imagem da Lua: <strong>NASA/LRO</strong> via Wikimedia Commons (domínio público)
+    </p>
+  </footer>
+
+
+<script>
+    // Inicializa a síntese de voz
+    const synth = window.speechSynthesis;
+    let currentUtterance = null;
+
+    // Seleciona todos os "quadrados" (cards) do site
+    const cards = document.querySelectorAll('.obj-card, .astro-card, .mission-item, .route-step');
+
+    cards.forEach(card => {
+      // Quando o mouse entra no card
+      card.addEventListener('mouseenter', () => {
+        // Para qualquer fala que esteja ocorrendo
+        synth.cancel();
+
+        // Pega o texto do card (título e parágrafo)
+        const textToSpeak = card.innerText;
+
+        // Cria a "fala"
+        currentUtterance = new SpeechSynthesisUtterance(textToSpeak);
+        
+        // Define o idioma para Português do Brasil
+        currentUtterance.lang = 'pt-BR';
+        
+        // Ajusta velocidade (1 é normal, 1.2 é um pouco mais rápido)
+        currentUtterance.rate = 1.1; 
+
+        // Executa a fala
+        synth.speak(currentUtterance);
+        
+        // Efeito visual opcional: destaca o card que está sendo lido
+        card.style.borderColor = "var(--gold)";
+      });
+
+      // Quando o mouse sai do card
+      card.addEventListener('mouseleave', () => {
+        // Para a fala imediatamente ao sair
+        synth.cancel();
+        
+        // Reseta o estilo visual
+        card.style.borderColor = "";
+      });
+    });
+
+    // Nota: Alguns navegadores exigem um clique inicial na página 
+    // para permitir que o som funcione (política de autoplay).
+  </script>
+
+
+</body>
+</html>
