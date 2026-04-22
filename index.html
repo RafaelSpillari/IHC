@@ -496,6 +496,7 @@
     }
     .form-group {
       margin-bottom: 1.5rem;
+      position: relative;
     }
     label {
       display: block;
@@ -525,6 +526,7 @@
       padding: .75rem 1rem;
       transition: border-color .2s, background .2s;
       appearance: none;
+      box-sizing: border-box;
     }
     input:focus, textarea:focus, select:focus {
       outline: 2px solid var(--gold);
@@ -534,6 +536,143 @@
     }
     textarea { resize: vertical; min-height: 120px; }
     select option { background: var(--charcoal); }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%233C6E71' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    input[type="text"]::placeholder,
+    input[type="email"]::placeholder,
+    textarea::placeholder { color: rgba(255,255,255,.3); }
+
+    /* Validação — estados */
+    .form-group.error input,
+    .form-group.error textarea,
+    .form-group.error select {
+      border-color: #E24B4A;
+      background: rgba(226,75,74,.08);
+    }
+    .form-group.valid input,
+    .form-group.valid textarea,
+    .form-group.valid select {
+      border-color: #1D9E75;
+    }
+    .err-msg {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+      font-size: .78rem;
+      color: #F09595;
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 400;
+    }
+    .form-group.error .err-msg { display: flex; }
+    .err-icon {
+      width: 14px; height: 14px;
+      background: #E24B4A;
+      border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .err-icon::after { content: '!'; color: #fff; font-size: 9px; font-weight: 700; }
+    .valid-mark {
+      display: none;
+      position: absolute;
+      right: 12px; top: calc(.65rem + .5rem + 1px + .75rem + 2px);
+      color: #1D9E75;
+      font-size: 1rem;
+      pointer-events: none;
+    }
+    .form-group.valid .valid-mark { display: block; }
+
+    /* Gênero */
+    .gender-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .gender-opt { flex: 1; min-width: 110px; }
+    .gender-opt input[type="radio"] { display: none; }
+    .gender-opt label {
+      display: flex; align-items: center; justify-content: center;
+      padding: .7rem .5rem;
+      margin: 0;
+      cursor: pointer;
+      border: 1px solid rgba(60,110,113,.4);
+      border-radius: 6px;
+      font-size: .6rem;
+      color: rgba(255,255,255,.55);
+      background: rgba(40,75,99,.15);
+      transition: border-color .2s, background .2s, color .2s;
+      text-align: center;
+      letter-spacing: .1em;
+    }
+    .gender-opt input[type="radio"]:checked + label {
+      border-color: var(--gold);
+      background: rgba(255,221,0,.1);
+      color: var(--gold);
+    }
+    .gender-opt label:hover { border-color: rgba(255,221,0,.45); color: rgba(255,255,255,.85); }
+
+    /* Checkbox consentimento */
+    .consent-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 1rem 1.2rem;
+      background: rgba(40,75,99,.18);
+      border: 1px solid rgba(60,110,113,.3);
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+    }
+    .consent-row input[type="checkbox"] {
+      width: 16px; height: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+    .consent-row .consent-label {
+      font-family: 'Exo 2', sans-serif;
+      font-size: .85rem;
+      color: rgba(255,255,255,.65);
+      line-height: 1.6;
+      cursor: pointer;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 300;
+    }
+
+    /* Campos obrigatórios note */
+    .fields-note {
+      font-family: 'Exo 2', sans-serif;
+      font-size: .78rem;
+      color: rgba(255,255,255,.35);
+      margin-bottom: 1.8rem;
+      font-weight: 300;
+    }
+
+    /* Tela de sucesso */
+    .success-screen {
+      display: none;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    .success-screen .success-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .success-screen h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: .6rem;
+      letter-spacing: .05em;
+    }
+    .success-screen p {
+      font-size: .9rem;
+      color: rgba(255,255,255,.6);
+    }
 
     .btn-submit {
       display: inline-flex;
@@ -551,6 +690,8 @@
       border-radius: 6px;
       cursor: pointer;
       transition: transform .2s, box-shadow .2s;
+      width: 100%;
+      justify-content: center;
     }
     .btn-submit:hover, .btn-submit:focus {
       transform: translateY(-2px);
@@ -568,6 +709,59 @@
       font-size: .8rem;
     }
     footer strong { color: var(--teal); }
+
+    /* ── Tooltips acessíveis ── */
+    [data-tip] { position: relative; }
+    [data-tip]::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10,12,20,.96);
+      color: var(--white);
+      font-family: 'Exo 2', sans-serif;
+      font-size: .75rem;
+      font-weight: 400;
+      line-height: 1.5;
+      white-space: nowrap;
+      max-width: 260px;
+      white-space: normal;
+      text-align: center;
+      padding: .45rem .8rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255,221,0,.3);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .2s ease, transform .2s ease;
+      transform: translateX(-50%) translateY(4px);
+      z-index: 9000;
+      box-shadow: 0 4px 16px rgba(0,0,0,.5);
+    }
+    [data-tip]::before {
+      content: '';
+      position: absolute;
+      bottom: calc(100% + 4px);
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: rgba(255,221,0,.3);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .2s ease;
+      z-index: 9001;
+    }
+    [data-tip]:hover::after,
+    [data-tip]:focus::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+    [data-tip]:hover::before,
+    [data-tip]:focus::before { opacity: 1; }
+
+    /* Focus outline global */
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
@@ -590,20 +784,20 @@
   <header role="banner">
     <nav role="navigation" aria-label="Menu principal">
       <div class="nav-left">
-        <a href="#objetivo">Objetivo</a>
-        <a href="#astronautas">Astronautas</a>
+        <a href="#objetivo" title="Ir para a seção de objetivos da missão" data-tip="Objetivos científicos e tecnológicos da Artemis 5">Objetivo</a>
+        <a href="#astronautas" title="Ir para a seção de astronautas" data-tip="Conheça a tripulação dos 4 astronautas da missão">Astronautas</a>
       </div>
 
       <div class="logo-center">
-        <div class="logo-emblem" role="img" aria-label="Emblema circular da missão Artemis 5 com gradiente dourado e azul">
+        <div class="logo-emblem" role="img" aria-label="Emblema circular da missão Artemis 5 com gradiente dourado e azul" tabindex="0" data-tip="Missão Artemis 5 — Retorno à Lua em 2030">
           ARTEMIS<br>V
         </div>
         <span class="logo-title">Missão Artemis 5</span>
       </div>
 
       <div class="nav-right">
-        <a href="#missoes">Missões Passadas</a>
-        <a href="#rota">Rota</a>
+        <a href="#missoes" title="Ir para o histórico das missões anteriores" data-tip="Artemis I, II, III e IV — voos anteriores do programa">Missões Passadas</a>
+        <a href="#rota" title="Ir para a rota de voo da missão" data-tip="Trajetória completa: lançamento, Gateway, pouso e retorno">Rota</a>
       </div>
     </nav>
   </header>
@@ -613,15 +807,16 @@
 
     <!-- ── HERO ── -->
     <section id="inicio" aria-labelledby="hero-heading">
-      <div class="moon-container">
+      <div class="moon-container" tabindex="0" role="img" aria-label="Fotografia da Lua cheia em alta resolução — destino da missão Artemis 5 em 2030" data-tip="A Lua — destino da missão Artemis 5. Polo sul lunar a 384.400 km da Terra">
         <div class="moon-glow" aria-hidden="true"></div>
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/1280px-FullMoon2010.jpg"
-          alt="Fotografia da Lua cheia em alta resolução com crateras e mares lunares visíveis, iluminada de forma uniforme contra o fundo negro do espaço"
+          alt="Fotografia da Lua cheia em alta resolução com crateras e mares lunares visíveis, iluminada de forma uniforme contra o fundo negro do espaço. Este é o destino da missão Artemis 5, prevista para 2030."
           class="moon-img"
           width="520"
           height="520"
           loading="eager"
+          title="A Lua — fotografia NASA/LRO. Distância média da Terra: 384.400 km. Destino: polo sul lunar"
         />
       </div>
 
@@ -631,7 +826,7 @@
       </h1>
       <p class="hero-subtitle">A missão que levará a humanidade de volta à Lua</p>
 
-      <div class="hero-summary" role="region" aria-label="Resumo da missão Artemis 5">
+      <div class="hero-summary" role="region" aria-label="Resumo da missão Artemis 5" tabindex="0" data-tip="Clique para navegar pelo resumo completo da missão">
         <p>
           A <strong>Missão Artemis 5</strong> representa o passo mais ambicioso do programa lunar da NASA desde a era Apollo.
           Prevista para 2030, ela levará quatro astronautas ao polo sul da Lua a bordo do foguete <strong>Space Launch System (SLS)</strong>
@@ -651,22 +846,22 @@
         <div class="section-divider" aria-hidden="true"></div>
 
         <div class="objectives-grid">
-          <article class="obj-card">
+          <article class="obj-card" tabindex="0" aria-label="Pesquisa Científica: coleta de amostras do polo sul lunar com evidências de gelo de água" data-tip="Coleta de amostras inéditas em crateras permanentemente sombreadas do polo sul">
             <span class="obj-icon" aria-hidden="true">🔬</span>
             <h3>Pesquisa Científica</h3>
             <p>Coletar amostras inéditas do polo sul lunar, onde há evidências de gelo de água em crateras permanentemente sombreadas, com potencial para sustentar vida e missões futuras.</p>
           </article>
-          <article class="obj-card">
+          <article class="obj-card" tabindex="0" aria-label="Base Lunar Permanente: fundamentos do Gateway, estação espacial lunar" data-tip="Estabelecimento do Gateway — plataforma orbital para missões lunares contínuas">
             <span class="obj-icon" aria-hidden="true">🏗️</span>
             <h3>Base Lunar Permanente</h3>
             <p>Estabelecer os fundamentos do Gateway, a estação espacial lunar que servirá como ponto de apoio para viagens à Lua e plataforma para missões além do sistema Terra-Lua.</p>
           </article>
-          <article class="obj-card">
+          <article class="obj-card" tabindex="0" aria-label="Cooperação Internacional: parceria com ESA, JAXA e CSA no programa Artemis" data-tip="Parceria com ESA, JAXA e CSA — exploração lunar colaborativa entre nações">
             <span class="obj-icon" aria-hidden="true">🌍</span>
             <h3>Cooperação Internacional</h3>
             <p>Integrar agências parceiras como ESA, JAXA e CSA no programa Artemis, consolidando a Lua como território de exploração pacífica compartilhada entre nações.</p>
           </article>
-          <article class="obj-card">
+          <article class="obj-card" tabindex="0" aria-label="Trampolim para Marte: teste de tecnologias para futuras missões ao planeta vermelho" data-tip="Tecnologias testadas na Lua preparam missões humanas a Marte na década de 2040">
             <span class="obj-icon" aria-hidden="true">🚀</span>
             <h3>Trampolim para Marte</h3>
             <p>Testar tecnologias de vida e propulsão em ambiente lunar — um análogo ao planeta vermelho — para preparar missões humanas a Marte ainda na década de 2040.</p>
@@ -682,8 +877,8 @@
       <div class="section-divider" aria-hidden="true"></div>
 
       <div class="astronaut-grid">
-        <article class="astro-card">
-          <div class="astro-img-wrap" role="img" aria-label="Ícone representativo de astronauta com traje espacial">
+        <article class="astro-card" tabindex="0" aria-label="Reid Wiseman, Comandante da missão, NASA. Veterano da ISS que liderará os 30 dias de missão" data-tip="Comandante — veterano da ISS, lidera a tripulação nos 30 dias da missão">
+          <div class="astro-img-wrap" role="img" aria-label="Ícone de astronauta representando Reid Wiseman, Comandante">
             <span aria-hidden="true">👩‍🚀</span>
           </div>
           <div class="astro-info">
@@ -692,8 +887,8 @@
             <p>Veterano da ISS, Wiseman liderará a equipe durante os 30 dias da missão, incluindo as duas caminhadas lunares previstas no polo sul.</p>
           </div>
         </article>
-        <article class="astro-card">
-          <div class="astro-img-wrap" role="img" aria-label="Ícone representativo de astronauta com traje espacial">
+        <article class="astro-card" tabindex="0" aria-label="Victor Glover, Piloto da missão, NASA. Primeiro afro-americano em missão de longa duração na ISS" data-tip="Piloto — responsável pelos sistemas da Orion e manobras de acoplagem com o Gateway">
+          <div class="astro-img-wrap" role="img" aria-label="Ícone de astronauta representando Victor Glover, Piloto">
             <span aria-hidden="true">👩‍🚀</span>
           </div>
           <div class="astro-info">
@@ -702,8 +897,8 @@
             <p>Responsável pelos sistemas da Orion e das manobras de rendezvous com o Gateway. Glover foi o primeiro afro-americano a integrar uma missão de longa duração na ISS.</p>
           </div>
         </article>
-        <article class="astro-card">
-          <div class="astro-img-wrap" role="img" aria-label="Ícone representativo de astronauta com traje espacial">
+        <article class="astro-card" tabindex="0" aria-label="Christina Koch, Especialista de missão, NASA. Primeira mulher a pisar na superfície lunar" data-tip="Especialista — primeira mulher a pousar na Lua, detentora do recorde feminino de permanência no espaço">
+          <div class="astro-img-wrap" role="img" aria-label="Ícone de astronauta representando Christina Koch, Especialista">
             <span aria-hidden="true">👩‍🚀</span>
           </div>
           <div class="astro-info">
@@ -712,8 +907,8 @@
             <p>Detentora do recorde feminino de permanência contínua no espaço. Koch será a primeira mulher a pisar na superfície lunar, um marco histórico da missão Artemis 5.</p>
           </div>
         </article>
-        <article class="astro-card">
-          <div class="astro-img-wrap" role="img" aria-label="Ícone representativo de astronauta com traje espacial">
+        <article class="astro-card" tabindex="0" aria-label="Jeremy Hansen, Especialista de missão, CSA. Primeiro não-americano a pousar na Lua" data-tip="Especialista — primeiro não-americano a pousar na Lua, representando a natureza global do programa">
+          <div class="astro-img-wrap" role="img" aria-label="Ícone de astronauta representando Jeremy Hansen, Especialista">
             <span aria-hidden="true">🧑‍🚀</span>
           </div>
           <div class="astro-info">
@@ -733,25 +928,25 @@
         <div class="section-divider" aria-hidden="true"></div>
 
         <div class="missions-timeline" role="list">
-          <article class="mission-item" role="listitem">
+          <article class="mission-item" role="listitem" tabindex="0" aria-label="Artemis I: Primeiro Voo Não Tripulado do SLS, concluída em novembro de 2022" data-tip="Voo inaugural do SLS — Orion sem tripulação a 64.000 km da Lua por 25 dias">
             <span class="mission-badge">Artemis I</span>
             <h4>Primeiro Voo Não Tripulado do SLS</h4>
             <p>Lançado em novembro de 2022, o voo inaugural do SLS levou a cápsula Orion sem tripulação até a órbita retrógrada distante da Lua (DRO), a 64.000 km da superfície lunar, retornando com sucesso após 25 dias.</p>
             <span class="mission-status">✓ Concluída — Nov. 2022</span>
           </article>
-          <article class="mission-item" role="listitem">
+          <article class="mission-item" role="listitem" tabindex="0" aria-label="Artemis II: Primeira tripulação humana ao redor da Lua, concluída em setembro de 2025" data-tip="4 astronautas em sobrevoo lunar — missão humana mais distante da Terra desde Apollo 17">
             <span class="mission-badge">Artemis II</span>
             <h4>Primeira Tripulação Humana ao Redor da Lua</h4>
             <p>Com quatro astronautas a bordo, Artemis II completou um sobrevoo próximo da Lua em trajetória livre retorno, sem pousar. Missão histórica: a mais distante da Terra com humanos desde Apollo 17, em 1972.</p>
             <span class="mission-status">✓ Concluída — Set. 2025</span>
           </article>
-          <article class="mission-item" role="listitem">
+          <article class="mission-item" role="listitem" tabindex="0" aria-label="Artemis III: Primeiro pouso lunar do século XXI, concluída em 2026" data-tip="Primeiro pouso lunar em 50 anos — 2 EVAs no polo sul com módulo HLS Starship">
             <span class="mission-badge">Artemis III</span>
             <h4>Primeiro Pouso Lunar do Século XXI</h4>
             <p>A primeira missão de pouso do programa Artemis levou dois astronautas ao polo sul da Lua usando o módulo HLS da SpaceX (Starship lunar). Dois EVAs na superfície e coleta de amostras marcaram o retorno humano à Lua após mais de 50 anos.</p>
             <span class="mission-status">✓ Concluída — 2026</span>
           </article>
-          <article class="mission-item" role="listitem">
+          <article class="mission-item" role="listitem" tabindex="0" aria-label="Artemis IV: Montagem do Lunar Gateway, concluída em 2028" data-tip="Construção dos primeiros módulos habitáveis do Gateway — estação orbital lunar">
             <span class="mission-badge">Artemis IV</span>
             <h4>Montagem do Lunar Gateway</h4>
             <p>Missão focada na construção do Gateway lunar, com entrega e acoplagem dos primeiros módulos habitáveis da estação orbital. Expandiu a capacidade de exploração sustentada da superfície e testou operações em conjunto com a ISS lunar.</p>
@@ -772,42 +967,42 @@
 
       <div class="route-diagram" role="region" aria-label="Diagrama da rota de voo da missão Artemis 5">
         <div class="route-steps">
-          <div class="route-step">
+          <div class="route-step" tabindex="0" aria-label="Etapa 1: Lançamento — SLS Block 2 decola do Kennedy Space Center, Cabo Canaveral" data-tip="Dia 0 — SLS Block 2 decola do Kennedy Space Center, Cabo Canaveral (FL)">
             <div class="step-num" aria-hidden="true">1</div>
             <span class="step-icon" aria-hidden="true">🚀</span>
             <h5>Lançamento</h5>
             <p>SLS Block 2 decola do Kennedy Space Center, Cabo Canaveral — FL</p>
           </div>
           <div class="route-arrow" aria-hidden="true">›</div>
-          <div class="route-step">
+          <div class="route-step" tabindex="0" aria-label="Etapa 2: TLI — Injeção Trans-Lunar, queima do estágio criogênico em direção à Lua no Dia 1" data-tip="Dia 1 — Queima do estágio criogênico: aceleração em direção à Lua (Trans-Lunar Injection)">
             <div class="step-num" aria-hidden="true">2</div>
             <span class="step-icon" aria-hidden="true">🛸</span>
             <h5>TLI</h5>
             <p>Injeção Trans-Lunar: queima do estágio criogênico em direção à Lua (Dia 1)</p>
           </div>
           <div class="route-arrow" aria-hidden="true">›</div>
-          <div class="route-step">
+          <div class="route-step" tabindex="0" aria-label="Etapa 3: Gateway — acoplagem na estação lunar em órbita NRHO nos dias 4 e 5" data-tip="Dias 4–5 — Acoplagem na estação Gateway em Órbita Retrógrada Quase-Halo lunar">
             <div class="step-num" aria-hidden="true">3</div>
             <span class="step-icon" aria-hidden="true">🛰️</span>
             <h5>Gateway</h5>
             <p>Acoplagem na estação lunar Gateway em órbita NRHO (Dia 4–5)</p>
           </div>
           <div class="route-arrow" aria-hidden="true">›</div>
-          <div class="route-step">
+          <div class="route-step" tabindex="0" aria-label="Etapa 4: Pouso — dois astronautas descem ao polo sul via HLS Starship no Dia 6" data-tip="Dia 6 — 2 astronautas descem ao polo sul pela cápsula HLS Starship da SpaceX">
             <div class="step-num" aria-hidden="true">4</div>
             <span class="step-icon" aria-hidden="true">🌕</span>
             <h5>Pouso</h5>
             <p>Dois astronautas descem ao polo sul via HLS Starship (Dia 6)</p>
           </div>
           <div class="route-arrow" aria-hidden="true">›</div>
-          <div class="route-step">
+          <div class="route-step" tabindex="0" aria-label="Etapa 5: EVA Lunar — duas caminhadas lunares e coleta de amostras nos dias 7 a 13" data-tip="Dias 7–13 — 2 caminhadas lunares (EVAs), coleta de amostras e experimentos científicos">
             <div class="step-num" aria-hidden="true">5</div>
             <span class="step-icon" aria-hidden="true">🥾</span>
             <h5>EVA Lunar</h5>
             <p>Duas caminhadas lunares, coleta de amostras e experimentos (Dia 7–13)</p>
           </div>
           <div class="route-arrow" aria-hidden="true">›</div>
-          <div class="route-step">
+          <div class="route-step" tabindex="0" aria-label="Etapa 6: Retorno — reentrada atmosférica e amerissagem no Oceano Pacífico no Dia 30" data-tip="Dia 30 — Reentrada atmosférica e amerissagem no Oceano Pacífico">
             <div class="step-num" aria-hidden="true">6</div>
             <span class="step-icon" aria-hidden="true">🌍</span>
             <h5>Retorno</h5>
@@ -824,63 +1019,79 @@
         <h2 id="contato-heading">Receba <span>Atualizações</span></h2>
         <div class="section-divider" aria-hidden="true"></div>
 
-        <form action="#" method="post" novalidate aria-label="Formulário de cadastro para receber atualizações da missão Artemis 5">
-          <div class="form-group">
-            <label for="nome">
-              Nome completo <span class="required" aria-hidden="true">*</span>
-            </label>
-            <input
-              type="text"
-              id="nome"
-              name="nome"
-              required
-              aria-required="true"
-              autocomplete="name"
-              placeholder="Seu nome"
-            />
-          </div>
+        <div id="the-form">
+          <p class="fields-note">Campos marcados com <span style="color:var(--gold)">*</span> são obrigatórios.</p>
 
-          <div class="form-group">
-            <label for="email">
-              E-mail <span class="required" aria-hidden="true">*</span>
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              aria-required="true"
-              autocomplete="email"
-              placeholder="seu@email.com"
-            />
-          </div>
+          <form action="#" method="post" novalidate aria-label="Formulário de cadastro para receber atualizações da missão Artemis 5">
 
-          <div class="form-group">
-            <label for="interesse">Área de interesse</label>
-            <select id="interesse" name="interesse">
-              <option value="">Selecione uma opção</option>
-              <option value="ciencia">Pesquisa Científica</option>
-              <option value="engenharia">Engenharia e Tecnologia</option>
-              <option value="astronautas">Astronautas e Tripulação</option>
-              <option value="rota">Trajetória e Navegação</option>
-              <option value="geral">Notícias Gerais</option>
-            </select>
-          </div>
+            <div class="form-group" id="fg-nome">
+              <label for="nome">Nome completo <span class="required" aria-hidden="true">*</span></label>
+              <input type="text" id="nome" name="nome" required aria-required="true" autocomplete="name" placeholder="Seu nome completo" title="Digite seu nome e sobrenome completos" aria-describedby="nome-err" />
+              <span class="valid-mark" aria-hidden="true">✓</span>
+              <div class="err-msg" id="nome-err" role="alert"><span class="err-icon"></span> Por favor, insira seu nome completo.</div>
+            </div>
 
-          <div class="form-group">
-            <label for="mensagem">Mensagem</label>
-            <textarea
-              id="mensagem"
-              name="mensagem"
-              rows="4"
-              placeholder="Dúvidas, comentários ou sugestões sobre a missão…"
-            ></textarea>
-          </div>
+            <div class="form-group" id="fg-email">
+              <label for="email">E-mail <span class="required" aria-hidden="true">*</span></label>
+              <input type="email" id="email" name="email" required aria-required="true" autocomplete="email" placeholder="seu@email.com" title="Digite um endereço de e-mail válido para receber as atualizações" aria-describedby="email-err" />
+              <span class="valid-mark" aria-hidden="true">✓</span>
+              <div class="err-msg" id="email-err" role="alert"><span class="err-icon"></span> Insira um endereço de e-mail válido.</div>
+            </div>
 
-          <button type="submit" class="btn-submit">
-            <span aria-hidden="true">🚀</span> Enviar Inscrição
-          </button>
-        </form>
+            <div class="form-group" id="fg-genero">
+              <label>Gênero</label>
+              <div class="gender-row" role="group" aria-label="Selecione seu gênero — campo opcional">
+                <div class="gender-opt">
+                  <input type="radio" id="gen-f" name="genero" value="feminino" title="Selecionar gênero feminino" />
+                  <label for="gen-f">Feminino</label>
+                </div>
+                <div class="gender-opt">
+                  <input type="radio" id="gen-m" name="genero" value="masculino" title="Selecionar gênero masculino" />
+                  <label for="gen-m">Masculino</label>
+                </div>
+                <div class="gender-opt">
+                  <input type="radio" id="gen-n" name="genero" value="nao-informar" title="Não informar gênero" />
+                  <label for="gen-n">Prefiro não informar</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" id="fg-interesse">
+              <label for="interesse">Área de interesse</label>
+              <select id="interesse" name="interesse" title="Selecione a área temática sobre a qual deseja receber atualizações" aria-label="Selecione sua área de interesse — campo opcional">
+                <option value="">Selecione uma opção</option>
+                <option value="ciencia">Pesquisa Científica</option>
+                <option value="engenharia">Engenharia e Tecnologia</option>
+                <option value="astronautas">Astronautas e Tripulação</option>
+                <option value="rota">Trajetória e Navegação</option>
+                <option value="geral">Notícias Gerais</option>
+              </select>
+            </div>
+
+            <div class="form-group" id="fg-mensagem">
+              <label for="mensagem">Mensagem</label>
+              <textarea id="mensagem" name="mensagem" rows="4" placeholder="Dúvidas, comentários ou sugestões sobre a missão…" title="Campo opcional — escreva dúvidas, comentários ou sugestões sobre a missão Artemis 5" aria-label="Mensagem opcional — dúvidas, comentários ou sugestões"></textarea>
+            </div>
+
+            <div class="consent-row">
+              <input type="checkbox" id="aceite" name="aceite" title="Marque para concordar em receber e-mails com novidades da missão Artemis" aria-describedby="aceite-desc" />
+              <label class="consent-label" for="aceite" id="aceite-desc">
+                Concordo em receber novidades, atualizações e informações sobre a missão Artemis por e-mail. Você pode cancelar a inscrição a qualquer momento.
+              </label>
+            </div>
+
+            <button type="submit" class="btn-submit" id="btn-submit" title="Enviar sua inscrição para receber atualizações da missão Artemis 5" aria-label="Enviar inscrição para receber atualizações da missão Artemis 5" data-tip="Clique para confirmar sua inscrição e receber novidades da missão">
+              <span aria-hidden="true">🚀</span> Enviar Inscrição
+            </button>
+          </form>
+        </div>
+
+        <div class="success-screen" id="success-screen" role="status" aria-live="polite">
+          <div class="success-icon" aria-hidden="true">✅</div>
+          <h3>Inscrição Confirmada!</h3>
+          <p>Obrigado! Você receberá as atualizações da missão Artemis no e-mail informado.</p>
+        </div>
+
       </section>
     </div>
 
@@ -892,56 +1103,53 @@
       &copy; 2030 <strong>NASA Artemis Program</strong> · Desenvolvido com fins educativos ·
       Imagem da Lua: <strong>NASA/LRO</strong> via Wikimedia Commons (domínio público)
     </p>
+    <p style="margin-top:.5rem;">
+      Desenvolvido por <strong style="color:var(--teal)">Rafael Santana Spillari</strong>
+    </p>
   </footer>
 
+  <script>
+    function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
 
-<script>
-    // Inicializa a síntese de voz
-    const synth = window.speechSynthesis;
-    let currentUtterance = null;
+    function setField(id, ok) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.toggle('error', !ok);
+      el.classList.toggle('valid', ok);
+    }
 
-    // Seleciona todos os "quadrados" (cards) do site
-    const cards = document.querySelectorAll('.obj-card, .astro-card, .mission-item, .route-step');
-
-    cards.forEach(card => {
-      // Quando o mouse entra no card
-      card.addEventListener('mouseenter', () => {
-        // Para qualquer fala que esteja ocorrendo
-        synth.cancel();
-
-        // Pega o texto do card (título e parágrafo)
-        const textToSpeak = card.innerText;
-
-        // Cria a "fala"
-        currentUtterance = new SpeechSynthesisUtterance(textToSpeak);
-        
-        // Define o idioma para Português do Brasil
-        currentUtterance.lang = 'pt-BR';
-        
-        // Ajusta velocidade (1 é normal, 1.2 é um pouco mais rápido)
-        currentUtterance.rate = 1.1; 
-
-        // Executa a fala
-        synth.speak(currentUtterance);
-        
-        // Efeito visual opcional: destaca o card que está sendo lido
-        card.style.borderColor = "var(--gold)";
+    function liveWatch(inputId, groupId, fn) {
+      const el = document.getElementById(inputId);
+      if (!el) return;
+      const trigger = el.tagName === 'SELECT' ? 'change' : 'blur';
+      el.addEventListener(trigger, function() { setField(groupId, fn(this.value)); });
+      el.addEventListener('input', function() {
+        if (document.getElementById(groupId).classList.contains('error') && fn(this.value))
+          setField(groupId, true);
       });
+    }
 
-      // Quando o mouse sai do card
-      card.addEventListener('mouseleave', () => {
-        // Para a fala imediatamente ao sair
-        synth.cancel();
-        
-        // Reseta o estilo visual
-        card.style.borderColor = "";
-      });
+    liveWatch('nome',  'fg-nome',  function(v) { return v.trim().length >= 2; });
+    liveWatch('email', 'fg-email', function(v) { return isValidEmail(v.trim()); });
+
+    document.getElementById('btn-submit').addEventListener('click', function(e) {
+      e.preventDefault();
+      const nome  = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      let ok = true;
+
+      if (nome.length < 2)      { setField('fg-nome',  false); ok = false; } else { setField('fg-nome',  true); }
+      if (!isValidEmail(email)) { setField('fg-email', false); ok = false; } else { setField('fg-email', true); }
+
+      if (!ok) {
+        const first = document.querySelector('.form-group.error');
+        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      document.getElementById('the-form').style.display = 'none';
+      document.getElementById('success-screen').style.display = 'block';
     });
-
-    // Nota: Alguns navegadores exigem um clique inicial na página 
-    // para permitir que o som funcione (política de autoplay).
   </script>
-
-
 </body>
 </html>
