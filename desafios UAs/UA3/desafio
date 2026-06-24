@@ -1,1 +1,92 @@
+"Ricardo está perdendo sua visão gradativamente devido a uma doença adquirida na infância.
+Apesar da limitação visual, Ricardo é apaixonado por tecnologia e por experiências computacionais e utiliza vários aparelhos tecnológicos como:
+-relógios inteligentes
+-smartphones
+-sensores acoplados em sua residência
 
+Como Ricardo está perdendo cada vez mais a sua visão, ele tem sentido muita dificuldade para se locomover em ambientes desconhecidos.
+Então, pensando em uma solução computacional para resolver seu problema, Ricardo contrata a empresa Desenvolve! para desenvolver uma solução computacional que o auxilie."
+
+Para projetar uma solução que realmente ajude o Ricardo, o ideal é seguir um processo estruturado de Design em IHC (Interação Humano-Computador), centrado no usuário. O passo a passo seria:
+
+---
+### **1. Análise do problema e do contexto**
+
+* Entender profundamente a situação do Ricardo:
+  * Perda gradual da visão
+  * Dificuldade de locomoção em ambientes desconhecidos
+* Levantar o contexto de uso:
+  * Onde ele circula (casa, rua, trabalho)
+  * Tecnologias que já utiliza (smartphone, smartwatch, sensores)
+* Identificar limitações e oportunidades (ex: uso de áudio, vibração, sensores)
+---
+### **2. Levantamento de requisitos**
+
+ **Funcionais:**
+
+  * Auxiliar na navegação
+  * Detectar obstáculos
+  * Fornecer orientação em tempo real
+
+ **Não funcionais:**
+
+  * Facilidade de uso (interface simples)
+  * Acessibilidade (comandos por voz, feedback sonoro)
+  * Confiabilidade e rapidez
+---
+### **3. Modelagem do usuário (persona e cenários)**
+
+* Criar uma persona baseada no Ricardo
+* Desenvolver cenários de uso:
+  * Ex: “Ricardo caminhando em uma rua desconhecida usando orientação por áudio”
+* Mapear jornada do usuário (user journey)
+---
+### **4. Ideação de soluções**
+
+* Brainstorm de possíveis soluções:
+  * App com navegação por voz
+  * Integração com sensores da casa
+  * Uso de vibração no smartwatch para direção
+* Escolher as mais viáveis
+---
+### **5. Prototipação**
+
+* Criar protótipos (baixa e alta fidelidade):
+  * Telas do app
+  * Fluxo de navegação
+* Simular interações (ex: comandos de voz, alertas sonoros)
+---
+### **6. Avaliação com usuários**
+
+* Testar com usuários reais ou similares ao Ricardo
+* Verificar:
+  * Facilidade de uso
+  * Eficiência
+  * Problemas de interação
+* Coletar feedback
+---
+### **7. Iteração**
+
+* Ajustar o sistema com base nos testes
+* Melhorar usabilidade e acessibilidade
+* Repetir testes se necessário
+---
+### **8. Implementação**
+
+* Desenvolver o sistema final:
+ * Aplicativo mobile
+ * Integração com dispositivos (smartwatch, sensores)
+* Garantir desempenho e estabilidade
+---
+### **9. Validação final**
+
+* Testar em ambiente real
+* Confirmar que resolve o problema do Ricardo
+* Avaliar satisfação do usuário
+---
+### **10. Manutenção e evolução**
+
+* Corrigir problemas após uso
+* Adicionar melhorias futuras
+* Adaptar conforme a progressão da limitação visual
+---
