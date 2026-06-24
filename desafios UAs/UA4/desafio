@@ -1,1 +1,19 @@
+"Dentro do aparato tecnológico, há os sistemas web, que permitem a comunicação entre os usuários (compradores) 
+e as organizações(vendedores).
+
+Para prover a comunicação é necessário usar tecnologias como o TypeScript (linguagem orientada a objetos),
+que permitem a modelagem do mundo real para o digital.
+
+As classes na programação orientada a objetos são abstrações do mundo real, 
+em que é possível modelar entidades do mundo real no digital.
+
+Um item muito importante nos sistemas de vendas é o produto que está sendo comercializado, esse produto tem atributos que o caracterizam, 
+por exemplo: o produto Cadeira tem os atributos de nome, descrição, valor comercial, fabricante, entre outros."
+
+Dentro da sua empresa, na qual você atua como o responsável por novas tecnologias, houve uma demanda para inserir a empresa no meio digital, 
+utilizando um site de vendas. Entre as suas atribuições, está a criação de um protótipo para mostrar aos acionistasda organização.
+Você foi solicitado em sua empresa para fazer as seguintes tarefas:
+a) Crie uma classe usando o TypeScript para representar um produto de um site de vendas; o produto deve conter pelo menos 5 atributos que o caracterizem, assim como os seus respectivos valores.
+b) Crie uma classe Venda que recebe um array de produtos no construtor e tem um método para somar todos os valores dos produtos adicionados no objeto criado a partir da dessa classe.
+c) Crie pelo menos dois produtos para inserir no objeto Venda criado e realizar a soma dos valores. Utilize os tipos de dados disponíveis no TypeScript para definir os atributos.
 
